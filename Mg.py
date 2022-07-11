@@ -1,9 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import pylab
 
-### Read FILE
 columns = []
 data = []
 with open('AGNgas_table_all.txt') as f:
@@ -15,15 +13,12 @@ with open('AGNgas_table_all.txt') as f:
             i+=1
             continue
         data.append(dict(zip(columns, line.split())))
-#print(type(data[0]['haloID']))
 
 ### Get necessary data
 FE_MG = []
-for i in data:
-    FE_MG.append({i['haloID']: float(i['iron_gas'])/float(i['Mg_gas']), 't' : float(i['z']) })
-#print(FE_MG)
-# print(FE_MG[0]['m0175'])
-# print(type(FE_MG[0]))
+for dat in data:
+    FE_MG.append({dat['haloID']: float(dat['iron_gas']), 't': float(dat['z']) })
+    #print(FE_MG)
 
 ### Create massive of names
 str='a'
@@ -36,48 +31,39 @@ for j in range(len(data)):
 print(halo_names)
 
 ### Split data for halos
-rat =[]
+met =[]
 time=[]
 for i in range(len(halo_names)):
-    eachhr=[]
+    eachhm=[]
     eachht=[]
     for j in FE_MG:
         for k in j:
             if k==halo_names[i]:
-                eachhr.append(j[halo_names[i]]) 
+                eachhm.append(j[halo_names[i]]/1000) 
                 eachht.append(j['t']+1) 
-    rat.append(eachhr)
+    met.append(eachhm)
     time.append(eachht)
-print(rat[0][0])
-print(time[0][0])   
-
-### For all points together
-x_ax= []
-f= []
-for dat in data:
-    x_ax.append(float(dat['z'])+1)
-    f.append(float(dat['iron_gas'])/float(dat['Mg_gas']))
-y_ax=np.log10(f)
-# print(len(x_ax))
-# print(y_ax.size)
+#print(met)
+print(met[0][0])
+print(time[0][0])  
 
 ### Creating plot
+#print(y_ax.size)
 WD = 'D:/SNU2022/Research/AGN_SI_SNU/'
 fig, ax = plt.subplots()
 ax.set_xlabel('$z+1$')
-ax.set_ylabel('$log(Fe/Mg)$')
+ax.set_xlim(0,4)
+ax.set_ylabel('$MGmass/10^3*Msolar$')
 c=[]
 halo=[]
 for i in range(len(halo_names)):
     color =0+i*10
-    c=np.full(len(rat[i]),color)
+    c=np.full(len(met[i]),color)
     str=halo_names[i]
     #for j in range(len(time[i])):
         #ax1.plot(j['t'],'b',j[str])
-    halo.append(ax.scatter(time[i], rat[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
-#ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
-ax.legend(handles=halo)
+    halo.append(ax.scatter(time[i], met[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
 
-print(type('t'))
+ax.legend(handles=halo)
 #plt.show()
-plt.savefig('FeMg.png', dpi=300)
+plt.savefig('Mg.png', dpi=300)
