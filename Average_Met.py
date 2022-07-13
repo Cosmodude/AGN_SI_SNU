@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import pylab
+from astropy.cosmology import Planck13
+import math
 
 Solmet=0.012
 
@@ -49,12 +51,15 @@ for i in range(len(halo_names)):
     Split_dict.append(eachh)
     time.append(eacht)
 
-### Turn over dict 
-print(Split_dict[0][0])
+### Turn over dict + time 
+#print(Split_dict[0][0])
 print("here")
 for i in Split_dict:
     i.reverse()
-print(Split_dict[0][0])
+for i in time:
+    i.reverse()
+print(time[0])
+#print(Split_dict[0][0])
    
 
 ### Count average metallicity using SUMMATION
@@ -69,41 +74,49 @@ def sum_method(data):
             mm=mm+(j['Masp']*j['Zp'])
             am.append((mm/m)/Solmet)
         avmet.append(am)
+    print("sum")
     print(avmet[1][0])
     return avmet
-avmets=sum_method(Split_dict)
-
-### Turn over data
-# 
-# print("here")
-# print (avmets[1])
 
 ### Count average metallicity using INTEGRATION
-def sum_method(data):
+def int_method(data):
     avmet=[]
     for i in range(len(halo_names)):
         am=[]
-        m=0
-        mm=0
+        m=[]
+        mm=[]
         for j in data[i]:
-            m= m + j['Masp']
-            mm=mm+(j['Masp']*j['Zp'])
-            am.append((mm/m)/Solmet)
+            m.append(j['Masp'])
+            mm.append(j['Masp']*j['Zp'])
+            am.append(np.trapz(mm,time[i][:len(mm)])/np.trapz(m,time[i][:len(m)])/Solmet)
         avmet.append(am)
+    print("int")
     print(avmet[1][0])
     return avmet
-avmets=sum_method(Split_dict)
+
+### Convert Redshift to loockback time 
+lb_time=[]
+for i in time:
+    lb_time.append(Planck13.lookback_time(i))
+print(lb_time[0][0])
+#print('time')
+#print(Planck13.lookback_time(0.01))
 
 ### Build Plot
 def plot(amet,time):
     WD = 'D:/SNU2022/Research/AGN_SI_SNU/'
     fig, ax = plt.subplots()
-    ax.set_xlabel('$z+1$')
-    ax.set_xlim(0,4)
+    ax.set_xlabel('$Gyr$')
+    ax.set_xlim(6.5,12.5)
     ax.set_ylabel('$Average_Met(Zsolar)$')
     c=[]
     halo=[]
     for i in range(len(halo_names)):
+        print(amet[i][0])
+        if math.isnan(amet[i][0]):
+            print("el del")
+            amet[i]=amet[i][1:]
+            time[i]=time[i][1:]
         color =0+i*10
         c=np.full(len(amet[i]),color)
         str=halo_names[i]
@@ -113,5 +126,11 @@ def plot(amet,time):
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
     ax.legend(handles=halo)
 
-    #plt.show()
-    plt.savefig('Average_Metr.png', dpi=300)
+
+avmets=sum_method(Split_dict)
+plot(avmets,lb_time)
+plt.savefig('Average_Met_Sum_lb.png', dpi=300)
+
+avmeti=int_method(Split_dict)
+plot(avmeti,lb_time)
+plt.savefig('Average_Met_Int_lb.png', dpi=300)
