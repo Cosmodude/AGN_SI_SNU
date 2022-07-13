@@ -52,7 +52,7 @@ for i in range(len(halo_names)):
 print(Split_dict[0][0]['Masp'])
    
 
-### Count average metallicity using Summation
+### Count average metallicity using SUMMATION
 def sum_method(data):
     avmet=[]
     for i in range(len(halo_names)):
@@ -66,26 +66,42 @@ def sum_method(data):
         avmet.append(am)
     print(avmet[1][0])
     return avmet
+avmets=sum_method(Split_dict)
+
+### Count average metallicity using INTEGRATION
+def sum_method(data):
+    avmet=[]
+    for i in range(len(halo_names)):
+        am=[]
+        m=0
+        mm=0
+        for j in data[i]:
+            m= m + j['Masp']
+            mm=mm+(j['Masp']*j['Zp'])
+            am.append((mm/m)/Solmet)
+        avmet.append(am)
+    print(avmet[1][0])
+    return avmet
+avmets=sum_method(Split_dict)
 
 ### Build Plot
-avmet=sum_method(Split_dict)
+def plot(amet,time):
+    WD = 'D:/SNU2022/Research/AGN_SI_SNU/'
+    fig, ax = plt.subplots()
+    ax.set_xlabel('$z+1$')
+    ax.set_xlim(0,4)
+    ax.set_ylabel('$Average_Met(Zsolar)$')
+    c=[]
+    halo=[]
+    for i in range(len(halo_names)):
+        color =0+i*10
+        c=np.full(len(amet[i]),color)
+        str=halo_names[i]
+        #for j in range(len(time[i])):
+            #ax1.plot(j['t'],'b',j[str])
+        halo.append(ax.scatter(time[i], amet[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
+    #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
+    ax.legend(handles=halo)
 
-WD = 'D:/SNU2022/Research/AGN_SI_SNU/'
-fig, ax = plt.subplots()
-ax.set_xlabel('$z+1$')
-ax.set_xlim(0,4)
-ax.set_ylabel('$Average_Met(Zsolar)$')
-c=[]
-halo=[]
-for i in range(len(halo_names)):
-    color =0+i*10
-    c=np.full(len(avmet[i]),color)
-    str=halo_names[i]
-    #for j in range(len(time[i])):
-        #ax1.plot(j['t'],'b',j[str])
-    halo.append(ax.scatter(time[i], avmet[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
-#ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
-ax.legend(handles=halo)
-
-#plt.show()
-plt.savefig('Average_Met.png', dpi=300)
+    #plt.show()
+    plt.savefig('Average_Met.png', dpi=300)
