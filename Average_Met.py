@@ -48,8 +48,13 @@ for i in range(len(halo_names)):
                 eacht.append(j['z']+1) 
     Split_dict.append(eachh)
     time.append(eacht)
-    
-print(Split_dict[0][0]['Masp'])
+
+### Turn over dict 
+print(Split_dict[0][0])
+print("here")
+for i in Split_dict:
+    i.reverse()
+print(Split_dict[0][0])
    
 
 ### Count average metallicity using SUMMATION
@@ -67,6 +72,11 @@ def sum_method(data):
     print(avmet[1][0])
     return avmet
 avmets=sum_method(Split_dict)
+
+### Turn over data
+# 
+# print("here")
+# print (avmets[1])
 
 ### Count average metallicity using INTEGRATION
 def sum_method(data):
@@ -104,4 +114,4 @@ def plot(amet,time):
     ax.legend(handles=halo)
 
     #plt.show()
-    plt.savefig('Average_Met.png', dpi=300)
+    plt.savefig('Average_Metr.png', dpi=300)
