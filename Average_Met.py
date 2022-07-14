@@ -74,7 +74,7 @@ def sum_method(data):
             mm=mm+(j['Masp']*j['Zp'])
             am.append((mm/m)/Solmet)
         avmet.append(am)
-    print("sum")
+    print("sum:")
     print(avmet[1][0])
     return avmet
 
@@ -88,9 +88,9 @@ def int_method(data):
         for j in data[i]:
             m.append(j['Masp'])
             mm.append(j['Masp']*j['Zp'])
-            am.append(np.trapz(mm,time[i][:len(mm)])/np.trapz(m,time[i][:len(m)])/Solmet)
+            am.append((np.trapz(mm,time[i][:len(mm)])/np.trapz(m,time[i][:len(m)]))/Solmet)
         avmet.append(am)
-    print("int")
+    print("int:")
     print(avmet[1][0])
     return avmet
 
