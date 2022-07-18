@@ -47,7 +47,7 @@ for i in range(len(halo_names)):
         for k in j:
             if k==halo_names[i]:
                 eachh.append({ 'Masp': j['part_mass'],'Zp':j['Z'] } ) 
-                eacht.append(j['z']+1) 
+                eacht.append(j['z']) 
     Split_dict.append(eachh)
     time.append(eacht)
 
@@ -107,8 +107,8 @@ def plot(amet,time):
     WD = 'D:/SNU2022/Research/AGN_SI_SNU/'
     fig, ax = plt.subplots()
     ax.set_xlabel('$Gyr$')
-    ax.set_xlim(6.5,12.5)
-    ax.set_ylabel('$Average_Met(Zsolar)$')
+    #ax.set_xlim(6.5,12.5)
+    ax.set_ylabel('$AverageMet(Zsolar)$')
     c=[]
     halo=[]
     for i in range(len(halo_names)):

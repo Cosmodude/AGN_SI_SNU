@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import pylab
+from astropy.cosmology import Planck13
 
 ### Read FILE
 columns = []
@@ -45,7 +46,7 @@ for i in range(len(halo_names)):
         for k in j:
             if k==halo_names[i]:
                 eachhm.append(j[halo_names[i]]) 
-                eachht.append(j['t']+1) 
+                eachht.append(j['t']) 
     mass.append(np.log10(eachhm))
     time.append(eachht)
 print(mass[0][0])
@@ -61,11 +62,19 @@ y_ax=np.log10(f)
 # print(len(x_ax))
 # print(y_ax.size)
 
+### Convert Redshift to loockback time 
+lb_time=[]
+for i in time:
+    lb_time.append(Planck13.lookback_time(i))
+print(lb_time[0][0])
+#print('time')
+#print(Planck13.lookback_time(0.01))
+
 ### Creating plot
 WD = 'D:/SNU2022/Research/AGN_SI_SNU/'
 fig, ax = plt.subplots()
-ax.set_xlabel('$z+1$')
-ax.set_xlim(0,4)
+ax.set_xlabel('$Gyr$')
+#ax.set_xlim(0,4)
 ax.set_ylabel('$log(MBH/Msolar)$')
 c=[]
 halo=[]
@@ -75,7 +84,7 @@ for i in range(len(halo_names)):
     str=halo_names[i]
     #for j in range(len(time[i])):
         #ax1.plot(j['t'],'b',j[str])
-    halo.append(ax.scatter(time[i], mass[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
+    halo.append(ax.scatter(lb_time[i], mass[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
 #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
 ax.legend(handles=halo)
 

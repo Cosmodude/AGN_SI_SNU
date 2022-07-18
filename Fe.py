@@ -41,7 +41,7 @@ for i in range(len(halo_names)):
         for k in j:
             if k==halo_names[i]:
                 eachhm.append(j[halo_names[i]]/1000) 
-                eachht.append(j['t']+1) 
+                eachht.append(j['t']) 
     met.append(eachhm)
     time.append(eachht)
 #print(met)
