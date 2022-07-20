@@ -75,10 +75,10 @@ c=np.full(len(time[i]),color)
 str=halo_names[i]
 #for j in range(len(time[i])):
  #ax1.plot(j['t'],'b',j[str])
-halo.append(ax.scatter(lb_time[i], mass[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
+halo.append(ax.scatter(time[i], mass[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
 #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
 ax.legend(handles=halo)
 
 print(type('t'))
 #plt.show()
-plt.savefig('M0175_BHmass.png', dpi=300)
+plt.savefig(WD+'M0175_BHmass.png', dpi=300)

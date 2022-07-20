@@ -1,7 +1,10 @@
+from cProfile import label
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import pylab
+import seaborn as sns
+import matplotlib.cm as cm
 from astropy.cosmology import Planck13
 FEsol=0.0012
 AlFesol=0.0008/0.0012
@@ -58,15 +61,6 @@ for i in range(len(halo_names)):
     time.append(eachht)
 print(time[0][0])   
 
-### For all points together
-x_ax= []
-f= []
-for dat in data:
-    x_ax.append(float(dat['z']))
-    f.append(float(dat['iron_gas'])/float(dat['Mg_gas']))
-y_ax=np.log10(f)
-# print(len(x_ax))
-# print(y_ax.size)
 
 ### Convert Redshift to loockback time 
 lb_time=[]
@@ -105,14 +99,32 @@ ax.set_ylabel('$[Alpha/Fe]$')
 c=[]
 halo=[]
 i =0 
-color = [round(num, 1) for num in time[i]]
-c=np.full(len(time[i]),color)
-str=halo_names[i]
-    #for j in range(len(time[i])):
-        #ax1.plot(j['t'],'b',j[str])
-halo.append(ax.scatter(FeH[i], AlphaFe[i], s=6, c=time[0], vmin=0, vmax=2.7,label=color))
+#color = [round(num*2, 0) for num in time[i]]
+c= []
+p=[]
+for j in time[i]:
+    if j not in c:
+        c.append(j)
+z=np.arange(0,3,0.5)
+print(z)
+#c=np.full(len(time[i]),color)
+#for j in range(len(time[i])):
+    #ax1.plot(j['t'],'b',j[str])
+
+
+for j in z: 
+    f=[]
+    a=[]
+    for k in range(len(time[i])):
+        if (j+0.25)>time[i][k]>(j-0.25):
+            f.append(FeH[i][k])
+            a.append(AlphaFe[i][k])
+    c=np.full(len(f),j)
+    ax.scatter(f,a,s=6,c=c,vmin=0,vmax=2.5,label=j)
+ax.legend(title='z',fontsize='small')            
+#halo.append(ax.scatter(FeH[i], AlphaFe[i], s=6, c=colors))
 #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
-ax.legend(handles=halo)
+
 
 print(type('t'))
 #plt.show()
