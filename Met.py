@@ -56,23 +56,27 @@ print(lb_time[0][0])
 #print('time')
 #print(Planck13.lookback_time(0.01))
 
-### Creating plot
-#print(y_ax.size)
-WD = 'D:/SNU2022/Research/AGN_SI_SNU/'
-fig, ax = plt.subplots()
-ax.set_xlabel('$Gyr$')
-#ax.set_xlim(0,4)
-ax.set_ylabel('$Z/Zsolar$')
-c=[]
-halo=[]
-for i in range(len(halo_names)):
-    color =0+i*10
+def Graph(number):
+    ### Creating plot
+    #print(y_ax.size)
+    WD = 'Met_plot/'
+    fig, ax = plt.subplots()
+    ax.set_xlabel('$Gyr$')
+    #ax.set_xlim(0,4)
+    ax.set_ylabel('$Z/Zsolar$')
+    c=[]
+    halo=[]
+    i=number
+    color =i*10
     c=np.full(len(met[i]),color)
     str=halo_names[i]
-    #for j in range(len(time[i])):
-        #ax1.plot(j['t'],'b',j[str])
+        #for j in range(len(time[i])):
+            #ax1.plot(j['t'],'b',j[str])
     halo.append(ax.scatter(lb_time[i], met[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
 
-ax.legend(handles=halo)
-#plt.show()
-plt.savefig(WD+'Metalicity.png', dpi=300)
+    ax.legend(handles=halo)
+    #plt.show()
+    plt.savefig(WD+halo_names[i]+'Met.png', dpi=300)
+
+for i in range(len(halo_names)):
+    Graph(i)

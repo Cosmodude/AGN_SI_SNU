@@ -70,23 +70,26 @@ print(lb_time[0][0])
 #print('time')
 #print(Planck13.lookback_time(0.01))
 
-### Creating plot
-WD = 'D:/SNU2022/Research/AGN_SI_SNU/'
-fig, ax = plt.subplots()
-ax.set_xlabel('$Gyr$')
-ax.set_ylabel('$log(Fe/Mg)$')
-c=[]
-halo=[]
-for i in range(len(halo_names)):
-    color =0+i*10
+def Graph(number):
+    ### Creating plot
+    WD = 'Fe_Mg_plot/'
+    fig, ax = plt.subplots()
+    ax.set_xlabel('$z$')
+    ax.set_ylabel('$log(Fe/Mg)$')
+    #ax.set_xlim(0,2.7)
+    c=[]
+    halo=[]
+    i=number
+    color =i*10
     c=np.full(len(rat[i]),color)
-    str=halo_names[i]
     #for j in range(len(time[i])):
         #ax1.plot(j['t'],'b',j[str])
-    halo.append(ax.scatter(lb_time[i], rat[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
-#ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
-ax.legend(handles=halo)
+    halo.append(ax.scatter(time[i], np.log10(rat[i]), s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
+    #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
+    ax.legend(handles=halo)
+    #plt.show()
+    plt.savefig(WD+halo_names[i]+'_FeMg.png', dpi=300)
 
-print(type('t'))
-#plt.show()
-plt.savefig('FeMg.png', dpi=300)
+
+for i in range(len(halo_names)):
+    Graph(i)

@@ -52,15 +52,6 @@ for i in range(len(halo_names)):
 print(mass[0][0])
 print(time[0][0])   
 
-### For all points together
-x_ax= []
-f= []
-for dat in data:
-    x_ax.append(float(dat['z'])+1)
-    f.append(float(dat['iron_gas'])/float(dat['Mg_gas']))
-y_ax=np.log10(f)
-# print(len(x_ax))
-# print(y_ax.size)
 
 ### Convert Redshift to loockback time 
 lb_time=[]
@@ -71,23 +62,26 @@ print(lb_time[0][0])
 #print(Planck13.lookback_time(0.01))
 
 ### Creating plot
-WD = 'D:/SNU2022/Research/AGN_SI_SNU/'
-fig, ax = plt.subplots()
-ax.set_xlabel('$Gyr$')
-#ax.set_xlim(0,4)
-ax.set_ylabel('$log(MBH/Msolar)$')
-c=[]
-halo=[]
-for i in range(len(halo_names)):
-    color =0+i*10
+def Graph(number):
+    WD = 'Bhmass_plot/'
+    fig, ax = plt.subplots()
+    ax.set_xlabel('$z$')
+    #ax.set_xlim(0,2.7)
+    ax.set_ylabel('$log(MBH/Msolar)$')
+    c=[]
+    halo=[]
+    color =number*10
+    i=number
     c=np.full(len(time[i]),color)
-    str=halo_names[i]
     #for j in range(len(time[i])):
-        #ax1.plot(j['t'],'b',j[str])
-    halo.append(ax.scatter(lb_time[i], mass[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
-#ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
-ax.legend(handles=halo)
+    #ax1.plot(j['t'],'b',j[str])
+    halo.append(ax.scatter(time[i], mass[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
+    #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
+    ax.legend(handles=halo)
 
-print(type('t'))
-#plt.show()
-plt.savefig(WD+'BHmass.png', dpi=300)
+    print(type('t'))
+    #plt.show()
+    plt.savefig(WD+halo_names[i]+'_BHmass.png', dpi=300)
+
+for j in range(len(halo_names)):
+    Graph(j)
