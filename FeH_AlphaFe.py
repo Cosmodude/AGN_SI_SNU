@@ -7,7 +7,7 @@ import seaborn as sns
 import matplotlib.cm as cm
 from astropy.cosmology import Planck13
 FEsol=0.0012
-AlFesol=0.0008/0.0012
+AlFesol=0.00048/0.00072
 print (AlFesol)
 
 ### Read FILE
