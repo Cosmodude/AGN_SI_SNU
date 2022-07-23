@@ -1,0 +1,13 @@
+23.07
+
+Checked the Bh accretion rates, all galaxies acrete most of gas particles during a short period of time 
+at the beginning of their acrettion history(some before 10 Gyr, most before 7.5 Gyr and one before 5.5)
+
+Average met:
+most of the haloes show steady growth with insignificant fluctuations
+most of the haloes reach supersolar mettalicities(except of two with Z~~1.2*Zsolar) > 1.8 Zsolar
+
+Met:
+
+some of the galaxies acrete low metallicity gas at the late stages of their lifes(m0175, m0204?, m0209, m0305, m0501).
+But there is a lack of data at low redshift, so it may occur by chance, since acreted particle metallicities vary a lot.  

@@ -109,7 +109,7 @@ def Graph(number):
     WD = 'AvMet_plot/'
     fig, ax = plt.subplots()
     ax.set_xlabel('$Gyr$')
-    #ax.set_xlim(6.5,12.5)
+    #ax.set_xlim(11,11.6)
     ax.set_ylabel('$AverageMet(Zsolar)$')
     c=[]
     halo=[]

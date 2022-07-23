@@ -44,7 +44,7 @@ for i in range(len(halo_names)):
                 eachht.append(j['t']) 
     met.append(eachhm)
     time.append(eachht)
-# print(met)
+
 
 #print("here")  
 
@@ -56,7 +56,8 @@ for i in met:
 for i in time:
     i.reverse()
 #print(time[0])
-print(met[0][0])
+#print(met[0][0])
+print(met[8])
 
 ### Convert Redshift to loockback time 
 lb_time=[]
