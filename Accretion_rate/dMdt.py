@@ -116,6 +116,6 @@ def Graph(number):
     #plt.show()
     plt.savefig(WD+halo_names[i]+'_'+repr(st)+'_dMdt.png', dpi=300)
 
-for j in range(len(halo_names)):
-    Graph(j)
-#Graph(0)
+#for j in range(len(halo_names)):
+#     Graph(j)
+Graph(0)

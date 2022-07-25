@@ -110,7 +110,7 @@ def Graph(number):
     fig, ax = plt.subplots()
     ax.set_xlabel('$Gyr$')
     #ax.set_xlim(11,11.6)
-    ax.set_ylabel('$AverageMet(Zsolar)$')
+    ax.set_ylabel('$TotalAverageMet(Zsolar)$')
     c=[]
     halo=[]
     avmet=avmets
