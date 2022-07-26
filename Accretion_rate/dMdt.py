@@ -53,6 +53,18 @@ for i in range(len(halo_names)):
 #print(mass[0])
 print(time[0][0])   
 
+### Turn over dict + time 
+def Turn():
+    #print(Split_dict[0][0])
+    print("here")
+    for i in mass:
+        np.flip(i)
+    for i in time:
+        i.reverse()
+
+    #print(time[0])
+    #print(Split_dict[0][0])
+Turn()
 
 ### Convert Redshift to loockback time 
 lb_time=[]
@@ -62,41 +74,34 @@ print(type(lb_time[0][0]))
 print('time')
 #print(Planck13.lookback_time(0.01))
 
-### Turn over dict + time 
-def Turn():
-    #print(Split_dict[0][0])
-    print("here")
-    for i in mass:
-        np.flip(i)
-    for i in time:
-        i.reverse()
-    #print(time[0])
-    #print(Split_dict[0][0])
-Turn()
-
 ### Count dM/dt
 dMdt=[]
+Tb=[]
 st=0.1
 ar=np.arange(0.0,12.5,st)
 print(len(ar))
 for i in range(len(halo_names)):
     dmdt=[]
+    tb=[]
     for j in ar:
         dm=0
         for k in range(len(lb_time[i])):
             if j+st>lb_time[i][k].value>j:
                 dm=dm+mass[i][k]
-        if dm!=0:
+        #if dm!=0:
             #dmdt.append(math.log10(dm))
-            dmdt.append(dm/10**8)
-        else:
-            dmdt.append(0)
+        dmdt.append(dm/10**8)
+        tb.append(j)
+        #else:
+        #    dmdt.append(0)
+        
     dMdt.append(dmdt)    
+    Tb.append(tb)
 print(len(dMdt[0]))
 
 ### Creating plot
 def Graph(number):
-    WD = 'dMdt_plot/'
+    WD = 'Accretion_rate/'
     fig, ax = plt.subplots()
     ax.set_xlabel('$Gyr$')
     #ax.set_xlim(0,2.7)
@@ -105,10 +110,10 @@ def Graph(number):
     halo=[]
     color =number*10
     i=number
-    c=np.full(len(ar),color)
+    c=np.full(len(Tb[i]),color)
     #for j in range(len(time[i])):
     #ax1.plot(j['t'],'b',j[str])
-    halo.append(ax.scatter(ar, dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
+    halo.append(ax.scatter(Tb[i], dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
     ax.legend(handles=halo)
 
@@ -116,6 +121,29 @@ def Graph(number):
     #plt.show()
     plt.savefig(WD+halo_names[i]+'_'+repr(st)+'_dMdt.png', dpi=300)
 
+
+def Hist(number):
+    WD = 'Accretion_rate/'
+    fig, ax = plt.subplots()
+    ax.set_xlabel('$Gyr$')
+    #ax.set_xlim(0,2.7)
+    ax.set_ylabel('$dM/dt (Msol*10^8/$'+repr(st)+'$Gyr)$')
+    c=[]
+    halo=[]
+    color =number*10
+    i=number
+    c=np.full(len(Tb[i]),color)
+    #for j in range(len(time[i])):
+    #ax1.plot(j['t'],'b',j[str])
+    #halo.append(ax.scatter(Tb[i], dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
+    #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
+    ax.hist(dMdt[i], bins=Tb[i])
+    #ax.legend(handles=halo)
+
+    print(type('t'))
+    #plt.show()
+    plt.savefig(WD+halo_names[i]+'_'+repr(st)+'_dMdt.png', dpi=300)
 #for j in range(len(halo_names)):
 #     Graph(j)
 Graph(0)
+Hist(0)

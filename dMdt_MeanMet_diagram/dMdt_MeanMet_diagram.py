@@ -57,7 +57,6 @@ for i in range(len(halo_names)):
 #print(mass[0])
 print(type(met[0][0]))   
 
-
 ### Convert Redshift to loockback time 
 lb_time=[]
 for i in time:
@@ -67,27 +66,29 @@ print('time')
 #print(Planck13.lookback_time(0.01))
 
 ### Turn over dict + time 
-def Turn():
+def Turn(met):
     #print(Split_dict[0][0])
     print("here")
     for i in met:
         np.flip(i)
-    for i in mass:
-        np.flip(i)
-    for i in time:
-        i.reverse()
     #print(time[0])
     #print(Split_dict[0][0])
-Turn()
+Turn(met)
+Turn(mass)
+Turn(time)
 
-### Count MeanMet
+### Count data
 st=0.1
 ar=np.arange(0.0,12.5,st)
 
 MeanMet=[]
+dMdt=[]
+Tb=[]
 print(len(ar))
 for i in range(len(halo_names)):
+    tb=[]
     am=[]
+    dmdt=[]
     for j in ar:
         m=0
         mm=0
@@ -97,33 +98,49 @@ for i in range(len(halo_names)):
                 mm=mm+(mass[i][k]*met[i][k])  
         if m!=0:
             am.append((mm/m)/Solmet)
-        else:
-            am.append(0)
-    MeanMet.append(am)    
+            dmdt.append(m/10**8)
+            tb.append(j)
+    MeanMet.append(am) 
+    dMdt.append(dmdt)
+    Tb.append(tb)
 print(len(MeanMet[0]))
 
-
+lb=np.arange(0,12.1,1.5)
 ### Creating plot
 def Graph(number):
-    WD = 'MeanMetdt_plot/'
+    WD = 'dMdt_MeanMet_diagram/'
     fig, ax = plt.subplots()
-    ax.set_xlabel('$Gyr$')
+    ax.set_xlabel('$Average(Timebin)Met/Zsolar$')
     #ax.set_xlim(0,2.7)
-    ax.set_ylabel('$AverageMet/Zsolar$')
+    ax.set_ylabel('$dM/dt (Msol*10^8/$'+repr(st)+'$Gyr)$')
     c=[]
     halo=[]
     color =number*10
     i=number
-    c=np.full(len(ar),color)
+    c=np.full(len(Tb[i]),color)
+    ax.set_title(halo_names[i])
     #for j in range(len(time[i])):
     #ax1.plot(j['t'],'b',j[str])
-    halo.append(ax.scatter(ar, MeanMet[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
+
+    for j in lb:
+        dm=[]
+        Z=[]
+        for k in range(len(Tb[i])):
+            if (j+0.75)>Tb[i][k]>(j-0.75):
+                dm.append(dMdt[i][k])
+                Z.append(MeanMet[i][k])
+        if len(dm)!=0:
+            c=np.full(len(Z),j)
+            ax.scatter(Z,dm,s=6,c=c,vmin=0,vmax=11,label=j)
+            ax.legend(title='Gyr',fontsize='small')            
+        #halo.append(ax.scatter(MeanMet[i], dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
-    ax.legend(handles=halo)
+    #ax.legend(handles=halo)
 
     print(type('t'))
     #plt.show()
-    plt.savefig(WD+halo_names[i]+'_'+repr(st)+'Gyr_MeanMetdt.png', dpi=300)
+    plt.savefig(WD+halo_names[i]+'_dMdt_MeanMet.png', dpi=300)
 
 for j in range(len(halo_names)):
-    Graph(j)
+   Graph(j)
+Graph(0)

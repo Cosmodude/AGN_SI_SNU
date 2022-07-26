@@ -100,11 +100,11 @@ c=[]
 halo=[]
 i =0 
 #color = [round(num*2, 0) for num in time[i]]
-c= []
-p=[]
-for j in time[i]:
-    if j not in c:
-        c.append(j)
+# c= []
+# p=[]
+# for j in time[i]:
+#     if j not in c:
+#         c.append(j)
 z=np.arange(0,3,0.5)
 print(z)
 #c=np.full(len(time[i]),color)
