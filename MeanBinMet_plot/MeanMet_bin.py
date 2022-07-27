@@ -85,9 +85,11 @@ st=0.1
 ar=np.arange(0.0,12.5,st)
 
 MeanMet=[]
+Tb=[]
 print(len(ar))
 for i in range(len(halo_names)):
     am=[]
+    tb=[]
     for j in ar:
         m=0
         mm=0
@@ -99,7 +101,9 @@ for i in range(len(halo_names)):
             am.append((mm/m)/Solmet)
         else:
             am.append(0)
-    MeanMet.append(am)    
+        tb.append(j-st/2)
+    MeanMet.append(am)  
+    Tb.append(tb)  
 print(len(MeanMet[0]))
 
 
@@ -125,5 +129,29 @@ def Graph(number):
     #plt.show()
     plt.savefig(WD+halo_names[i]+'_'+repr(st)+'Gyr_MeanMetdt.png', dpi=300)
 
+def Hist(number):
+    from matplotlib import colors, transforms
+    WD = 'MeanBinMet_plot/'
+    fig, ax = plt.subplots()
+    ax.set_xlabel('$Gyr$')
+    #ax.set_xlim(0,2.7)
+    ax.set_ylabel('$Average(Timebin)Met/Zsolar$')
+    halo=[]
+    color =number*10
+    i=number
+    colors=[colors.to_rgba(c)
+        for c in plt.rcParams['axes.prop_cycle'].by_key()['color']]
+    #c=['b','r','g','c','m','y','k','purple', 'orange','dodgerblue']
+    #for j in range(len(time[i])):
+    #ax1.plot(j['t'],'b',j[str])
+    #halo.append(ax.scatter(Tb[i], dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
+    #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
+    ax.bar( Tb[i],MeanMet[i], width=st, color=colors[i],label=halo_names[i])
+    ax.legend()
+
+    print(type('t'))
+    #plt.show()
+    plt.savefig(WD+halo_names[i]+'_'+repr(st)+'Gyr_MeanMetdt.png', dpi=300)
+
 for j in range(len(halo_names)):
-    Graph(j)
+    Hist(j)

@@ -106,11 +106,11 @@ print(lb_time[0][0])
 
 ### Build Plot
 def Graph(number):
-    WD = 'AvMet_plot/'
+    WD = 'AvTotalMet_plot/'
     fig, ax = plt.subplots()
     ax.set_xlabel('$Gyr$')
     #ax.set_xlim(11,11.6)
-    ax.set_ylabel('$TotalAverageMet(Zsolar)$')
+    ax.set_ylabel('$HaloAverageMet(Zsolar)$')
     c=[]
     halo=[]
     avmet=avmets

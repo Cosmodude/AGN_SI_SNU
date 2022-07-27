@@ -1,13 +1,24 @@
 23.07
 
-Acretion rate:
+Accretion rate:
 Checked the Bh accretion rates, all haloes accrete most of gas particles during a short period of time 
-at the beginning of their accrettion history (some until 10 Gyr, most until 7.5 Gyr and one until 5.5)
+at the beginning of their accretion history (some until 10 Gyr, most until 7.5 Gyr and one until 5.5)
 
-Average met:
-most of the haloes show steady growth with insignificant fluctuations
-most of the haloes reach supersolar mettalicities(except of two with Z~~1.2*Zsolar) > 1.8 Zsolar
+Average Total Met:
+most of the haloes show steady growth with insignificant recent fluctuations and wild ones at the beggining of accretion.
+most of the haloes reach super-solar mettalicyties(except of two with Z~~1.2*Zsolar) > 1.8 Zsolar
 
 Met:
-some of the galaxies acrete low metallicity gas at the late stages of their lives(m0175, m0204?, m0209, m0305, m0501).
-But there is a lack of data at low redshift, so it may occur by chance, since acreted particle metallicities vary a lot.  
+some of the galaxies accrete low metallicity gas at the late stages of their lives(m0175, m0204?, m0209, m0305, m0501).
+But there is a lack of data at low redshift, so it may occur by chance, since accreted particle metallicities vary a lot.  
+
+Average bin Met:
+At the majority of accretions haloes get high metallicity gas
+No pattern can be seen in the AvMet-time dependence
+But m0305 and m0209 show outstanding behavior in recent times
+
+dMdt-MeanMet diagram:
+No clear pattern can be seen.
+But for all haloes (with exception of m0209 and m0305) the points on the diagram are mostly in the square [1.5-3]x[0-1.5](Met)x(dM/dt). The square's area is ~= 0.15 of variation square.
+For m0300, m0501, m0858, m0908 more than 90% of points lie in this squares.
+Events with low-metal particles(met<solar) being accreted always have low accretion rates.

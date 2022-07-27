@@ -4,6 +4,7 @@ import math
 import pandas as pd
 import pylab
 from astropy.cosmology import Planck13
+from matplotlib import colors, transforms
 
 ### Read FILE
 columns = []
@@ -91,14 +92,14 @@ for i in range(len(halo_names)):
         #if dm!=0:
             #dmdt.append(math.log10(dm))
         dmdt.append(dm/10**8)
-        tb.append(j)
+        tb.append(j-st/2)
         #else:
         #    dmdt.append(0)
         
     dMdt.append(dmdt)    
     Tb.append(tb)
-print(len(dMdt[0]))
-
+print((dMdt[0]))
+print((Tb[0]))
 ### Creating plot
 def Graph(number):
     WD = 'Accretion_rate/'
@@ -123,27 +124,30 @@ def Graph(number):
 
 
 def Hist(number):
+    from matplotlib import colors, transforms
     WD = 'Accretion_rate/'
     fig, ax = plt.subplots()
     ax.set_xlabel('$Gyr$')
     #ax.set_xlim(0,2.7)
     ax.set_ylabel('$dM/dt (Msol*10^8/$'+repr(st)+'$Gyr)$')
-    c=[]
     halo=[]
     color =number*10
     i=number
-    c=np.full(len(Tb[i]),color)
+    colors=[colors.to_rgba(c)
+        for c in plt.rcParams['axes.prop_cycle'].by_key()['color']]
+    #c=['b','r','g','c','m','y','k','purple', 'orange','dodgerblue']
     #for j in range(len(time[i])):
     #ax1.plot(j['t'],'b',j[str])
     #halo.append(ax.scatter(Tb[i], dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
-    ax.hist(dMdt[i], bins=Tb[i])
-    #ax.legend(handles=halo)
+    ax.bar( Tb[i],dMdt[i], width=st, color=colors[i],label=halo_names[i])
+    ax.legend()
 
     print(type('t'))
     #plt.show()
     plt.savefig(WD+halo_names[i]+'_'+repr(st)+'_dMdt.png', dpi=300)
-#for j in range(len(halo_names)):
-#     Graph(j)
-Graph(0)
-Hist(0)
+
+for j in range(len(halo_names)):
+    Hist(j)
+#Graph(0)
+#Hist(0)
