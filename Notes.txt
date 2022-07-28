@@ -5,8 +5,8 @@ Checked the Bh accretion rates, all haloes accrete most of gas particles during 
 at the beginning of their accretion history (some until 10 Gyr, most until 7.5 Gyr and one until 5.5)
 
 Average Total Met:
-most of the haloes show steady growth with insignificant recent fluctuations and wild ones at the beggining of accretion.
-most of the haloes reach super-solar mettalicyties(except of two with Z~~1.2*Zsolar) > 1.8 Zsolar
+most of the haloes show steady growth with insignificant recent fluctuations and wild ones at the begining of accretion.
+most of the haloes reach super-solar mettalicities(except of two with Z~~1.2*Zsolar) > 1.8 Zsolar
 
 Met:
 some of the galaxies accrete low metallicity gas at the late stages of their lives(m0175, m0204?, m0209, m0305, m0501).
@@ -23,8 +23,13 @@ But for all haloes (with exception of m0209 and m0305) the points on the diagram
 For m0300, m0501, m0858, m0908 more than 90% of points lie in this squares.
 Events with low-metal particles(met<solar) being accreted always have low accretion rates.
 
-
+Eddington ratio: 
+I can calculate Eddington luminosity using the formulas
+http://www-astro.physics.ox.ac.uk/~garret/teaching/lecture7-2012.pdf
+Also the approximation for actual luminosity. 
 
 To DO:
-Check bhmass-Met ratio
-Check Edington rat - Met dependence
+Check BHmass-Met ratio
+Check Eddington rat - Met dependence 
+Viscosity
+Eddington ratio connects bolometric luminosity and Eddington luminosity
