@@ -22,3 +22,9 @@ No clear pattern can be seen.
 But for all haloes (with exception of m0209 and m0305) the points on the diagram are mostly in the square [1.5-3]x[0-1.5](Met)x(dM/dt). The square's area is ~= 0.15 of variation square.
 For m0300, m0501, m0858, m0908 more than 90% of points lie in this squares.
 Events with low-metal particles(met<solar) being accreted always have low accretion rates.
+
+
+
+To DO:
+Check bhmass-Met ratio
+Check Edington rat - Met dependence
