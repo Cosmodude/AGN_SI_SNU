@@ -33,3 +33,8 @@ Check BHmass-Met ratio
 Check Eddington rat - Met dependence 
 Viscosity
 Eddington ratio connects bolometric luminosity and Eddington luminosity
+Count Eddington ratio based on dM/dt_AverageMet diagram!!!!!!!!!!!!!!!!!!
+
+
+Fe/Mg:
+Graphs show agreement with the prediction of Shin, etall. (2021)
