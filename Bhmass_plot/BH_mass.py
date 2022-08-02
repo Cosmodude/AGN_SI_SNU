@@ -65,7 +65,7 @@ print(lb_time[0][0])
 def Graph(number):
     WD = 'Bhmass_plot/'
     fig, ax = plt.subplots()
-    ax.set_xlabel('$z$')
+    ax.set_xlabel('$Gyr$')
     #ax.set_xlim(0,2.7)
     ax.set_ylabel('$log(MBH/Msolar)$')
     c=[]
@@ -75,7 +75,7 @@ def Graph(number):
     c=np.full(len(time[i]),color)
     #for j in range(len(time[i])):
     #ax1.plot(j['t'],'b',j[str])
-    halo.append(ax.scatter(time[i], mass[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
+    halo.append(ax.scatter(lb_time[i], mass[i], s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
     ax.legend(handles=halo)
 

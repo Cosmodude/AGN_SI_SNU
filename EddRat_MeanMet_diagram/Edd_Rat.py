@@ -24,7 +24,7 @@ with open('AGNgas_table_all.txt') as f:
 ### Get necessary data
 DATA = []
 for i in data:
-     DATA.append({i['haloID']: i['haloID'], 'part_mass': float(i['m_gas']),'Z' : float(i['Z/Zsolar'])*Solmet, 't' : float(i['z']) })
+     DATA.append({i['haloID']: i['haloID'],'Bhmass': float(i['m_BH']), 'part_mass': float(i['m_gas']),'Z' : float(i['Z/Zsolar'])*Solmet, 't' : float(i['z']) })
 #print(FE_MG)
 
 ### Create massive of names
@@ -40,21 +40,24 @@ print(halo_names)
 ### Split data for halos
 met =[]
 mass=[]
+BHmass=[]
 time=[]
 for i in range(len(halo_names)):
     eachhmet=[]
     eachht=[]
     eachmass=[]
+    eachbh=[]
     for j in DATA:
         for k in j:
             if k==halo_names[i]:
                 eachmass.append(j['part_mass'])
                 eachhmet.append(j['Z']) 
                 eachht.append(j['t']) 
+                eachbh.append(j['Bhmass'])
     met.append(eachhmet)
     mass.append(eachmass)
     time.append(eachht)
-#print(mass[0])
+    BHmass.append(eachbh)
 print(type(met[0][0]))   
 
 ### Convert Redshift to loockback time 
@@ -68,40 +71,48 @@ print('time')
 ### Turn over dict + time 
 def Turn(met):
     #print(Split_dict[0][0])
-    print("here")
-    for i in met:
-        np.flip(i)
+    #print("here")turn=[]
+    turn=[]
     #print(time[0])
-    #print(Split_dict[0][0])
-Turn(met)
-Turn(mass)
-Turn(time)
+    for i in met:
+        turn.append(np.flip(i))
+    return turn
+met=Turn(met)
+mass=Turn(mass)
+time=Turn(time)
+BHmass=Turn(BHmass)
+print(BHmass[0])
 
 ### Count data
 st=0.1
 ar=np.arange(0.0,12.5,st)
 
 MeanMet=[]
-dMdt=[]
+EddRat=[]
 Tb=[]
 print(len(ar))
 for i in range(len(halo_names)):
     tb=[]
     am=[]
-    dmdt=[]
+    Rat=[]
     for j in ar:
         m=0
         mm=0
+        bh=0
         for k in range(len(lb_time[i])):
             if j+st>lb_time[i][k].value>j:
                 m= m + mass[i][k]
-                mm=mm+(mass[i][k]*met[i][k])  
+                mm=mm+(mass[i][k]*met[i][k]) 
+                bh=BHmass[i][k]
         if m!=0:
             am.append((mm/m)/Solmet)
-            dmdt.append(m/10**8)
+            Rat.append(m/bh)
             tb.append(j)
+            if m/bh>1:
+                print("anomaly")
+                print(tb[-1])
     MeanMet.append(am) 
-    dMdt.append(dmdt)
+    EddRat.append(Rat)
     Tb.append(tb)
 print(len(MeanMet[0]))
 
@@ -110,11 +121,11 @@ lb=np.arange(0,12.1,1.5)
 def Graph(number):
     import math
     from matplotlib import colors, transforms
-    WD = 'dMdt_MeanMet_diagram/'
+    WD = 'EddRat_MeanMet_diagram/'
     fig, ax = plt.subplots()
-    ax.set_xlabel('$Average(Timebin)Met/Zsolar$')
+    ax.set_ylabel('$Average(Timebin)Met/Zsolar$')
     #ax.set_xlim(0,2.7)
-    ax.set_ylabel('$dM/dt (Msol*10^8/$'+repr(st)+'$Gyr)$')
+    ax.set_xlabel('$(dM/dt)/M *(1/$'+repr(st)+'$*Gyr)$')
     c=[]
     halo=[]
     color =number*10
@@ -128,15 +139,15 @@ def Graph(number):
         for h in plt.rcParams['axes.prop_cycle'].by_key()['color']]
 
     for j in lb:
-        dm=[]
+        R=[]
         Z=[]
         for k in range(len(Tb[i])):
             if (j+0.75)>Tb[i][k]>(j-0.75):
-                dm.append(dMdt[i][k])
+                R.append(EddRat[i][k])
                 Z.append(MeanMet[i][k])
-        if len(dm)!=0:
+        if len(R)!=0:
             c=np.full(len(Z),j)
-            ax.scatter(Z,dm,s=6,color=colors[9-int(j/1.5)],label=j)
+            ax.scatter(R,Z,s=6,color=colors[9-int(j/1.5)],label=j)
             ax.legend(title='Gyr',fontsize='small')            
         #halo.append(ax.scatter(MeanMet[i], dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
@@ -144,7 +155,7 @@ def Graph(number):
 
     print(type('t'))
     #plt.show()
-    plt.savefig(WD+halo_names[i]+'_dMdt_MeanMet.png', dpi=300)
+    plt.savefig(WD+halo_names[i]+'_EddRat_MeanMet.png', dpi=300)
 
 for j in range(len(halo_names)):
    Graph(j)
