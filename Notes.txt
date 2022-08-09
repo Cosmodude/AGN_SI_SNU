@@ -26,14 +26,11 @@ Events with low-metal particles(met<solar) being accreted always have low accret
 Eddington ratio: 
 I can calculate Eddington luminosity using the formulas
 http://www-astro.physics.ox.ac.uk/~garret/teaching/lecture7-2012.pdf
-Also the approximation for actual luminosity. 
+No clear pattern. Something resembling linear regression can be seen on some graphs.
 
 To DO:
-Check BHmass-Met ratio
-Check Eddington rat - Met dependence 
 Viscosity
 Eddington ratio connects bolometric luminosity and Eddington luminosity
-Count Eddington ratio based on dM/dt_AverageMet diagram!!!!!!!!!!!!!!!!!!
 
 
 Fe/Mg:
