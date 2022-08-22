@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import pylab
 from astropy.cosmology import Planck13
+from operator import itemgetter
 
 ### Read FILE
 columns = []
@@ -35,8 +36,10 @@ for j in range(len(data)):
     if  data[j]['haloID'] not in halo_names:
         halo_names.append(data[j]['haloID']) 
 print(halo_names)
+print("\n")
 
 ### Split data for halos
+dict=[]
 mass =[]
 time=[]
 for i in range(len(halo_names)):
@@ -49,6 +52,7 @@ for i in range(len(halo_names)):
                 eachht.append(j['t']) 
     mass.append(np.log10(eachhm))
     time.append(eachht)
+    dict.append({halo_names[i]: halo_names[i], 'MBH': mass[i][0]})
 # print(mass[0][0])
 # print(time[0][0])   
 
@@ -60,7 +64,6 @@ for i in time:
 #print(lb_time[0][0])
 #print('time')
 #print(Planck13.lookback_time(0.01))
-
-for i in range(len(time)):
-    print(halo_names[i])
-    print(mass[i][0])
+print(*sorted(dict, key=lambda x: x['MBH'],reverse=True),sep="\n")
+# for i in range(len(time)):
+#     print(dict[i])
