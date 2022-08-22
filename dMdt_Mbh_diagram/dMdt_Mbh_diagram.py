@@ -159,7 +159,7 @@ def Hist(number):
     #ax1.plot(j['t'],'b',j[str])
     #halo.append(ax.scatter(Tb[i], dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
-    for j in lb:
+    for j in reversed(lb):
         dm=[]
         MBh=[]
         for k in range(len(Tb[i])):
@@ -167,9 +167,9 @@ def Hist(number):
                 dm.append(dMdt[i][k])
                 MBh.append(Mbh[i][k])
         if len(dm)!=0:
-            c=np.full(len(MBh),'r')
+            #c=np.full(len(MBh),'r')
            # color=colors[9-int(j/1.5)]
-            ax.bar( MBh,dm, width=(9-(j/1.5)),color=colors[9-int(j/1.5)] ,label=j)
+            ax.bar( MBh, dm, width=0.5,color=colors[9-int(j/1.5)] ,label=j)
             ax.legend(title='Gyr',fontsize='small')     
     ax.legend()
 
