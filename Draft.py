@@ -1,4 +1,4 @@
-# import numpy as np
+import numpy as np
 
 # print("!")
 # mass=[]
@@ -26,13 +26,21 @@ class food:
     def __init__(self,name):
         self.name=name
     def show(self):
-        print(food.i.t)
+        print(self.i.t)
         #print(i.k)
-var=food(3)
+var=food("pizza")
 var.show()
 
-
-
+array=[0,1,2,3,4,5]
+print(array)
+array.reverse()
+print(array)
+np.flip(array)
+print(array)
+arr=np.arange(0,10,1)
+print(arr)
+arr=np.flip(arr)
+print(arr)
 # class vary:
 #     k=0
 #     z=3
