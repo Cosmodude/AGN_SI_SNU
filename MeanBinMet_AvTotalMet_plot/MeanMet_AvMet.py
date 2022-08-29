@@ -5,6 +5,8 @@ import pandas as pd
 import pylab
 from astropy.cosmology import Planck13
 
+print("diagram")
+
 Solmet=0.0134
 
 ### Read FILE
@@ -146,7 +148,7 @@ def Graph(number):
 
 def Hist(number):
     from matplotlib import colors, transforms
-    WD = 'MeanBinMet+AvTotalMet_plot/'
+    WD = 'MeanBinMet_AvTotalMet_plot/'
     fig, ax = plt.subplots()
     ax.set_xlabel('$Gyr$')
     #ax.set_xlim(0,2.7)
@@ -170,7 +172,7 @@ def Hist(number):
     print(halo_names[i])
     #print(type('t'))
     #plt.show()
-    plt.savefig(WD+halo_names[i]+'MeanMetdt+AvMet.png', dpi=300)
+    plt.savefig(WD+halo_names[i]+'_MeanMetdt+AvMet.png', dpi=300)
 
 for j in range(len(halo_names)):
     Hist(j)

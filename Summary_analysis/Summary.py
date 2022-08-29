@@ -4,7 +4,7 @@ import pandas as pd
 import pylab
 from astropy.cosmology import Planck13
 from matplotlib import colors, transforms
-from ..MeanBinMet_AvTotalMet_plot.MeanMet_AvMet import sum_method
+from MeanBinMet_AvTotalMet_plot.MeanMet_AvMet import sum_method,Solmet
 
 ### Read FILE
 columns = []
@@ -82,7 +82,7 @@ print(lb_time[0][-1])
 #print('time')
 #print(Planck13.lookback_time(0.01))
 
-Avmet=MeanMet_Avmet.sum_method(Met,Pmass,time)
+Avmet=sum_method(Met,Pmass,time)
 
 ### Count dM/dt + MeanMet
 dMdt=[]
@@ -120,7 +120,7 @@ print((Tb[0]))
 def Plot(i):
     from matplotlib import colors, transforms
     WD = 'Summary_analysis/'
-    fig, ax = plt.subplots(1,2)
+    fig, ax = plt.subplots(2,1)
 
     ##dM/dt + MBH
     ax[0].set_xlabel('$Gyr$')
@@ -137,7 +137,7 @@ def Plot(i):
     halo.append(ax[0].scatter(lb_time[i], np.log10(BHmass[i]), s=6, c=c, vmin=0, vmax=100,label='MBH'))
     #halo.append(ax.scatter(lb_time[i], np.log10(Metmass[i]), s=6, c=c, vmin=0, vmax=100,label='MetMass'))
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
-    ax[0].legend(handles=halo)
+    ax[0].legend(handles=halo,loc=3)
     ax[0].set_title(halo_names[i])
 
     ##MeanMet+AvMEt
@@ -145,18 +145,19 @@ def Plot(i):
     #ax.set_xlim(0,2.7)
     ax[1].set_ylabel('$Met/Zsolar$')
     halo=[]
-    colors=[colors.to_rgba(c)
-        for c in plt.rcParams['axes.prop_cycle'].by_key()['color']]
+    # colors=[colors.to_rgba(c)
+    #     for c in plt.rcParams['axes.prop_cycle'].by_key()['color']]
     #for j in range(len(time[i])):
     #halo.append(ax.scatter(Tb[i], dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
     halo.append(ax[1].bar( Tb[i],MeanMet[i], width=st, color=colors[i],label="MeanTimeBinMet"))
     c=np.full(len(lb_time[i]),0)
     halo.append(ax[1].scatter(lb_time[i], Avmet[i], s=5, c=c, vmin=0, vmax=100,label="AvBHMet"))
     ax[1].legend(handles=halo)
-    ax[1].set_title(halo_names[i])
+
 
     print(type('t'))
     #plt.show()
     plt.savefig(WD+halo_names[i]+'_BHmass+Metmass.png', dpi=300)
 
 Plot(0)
+Plot(4)
