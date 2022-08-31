@@ -141,7 +141,7 @@ def Graph(number):
         #halo.append(ax.scatter(MeanMet[i], dMdt[i], s=5, c=c, vmin=0, vmax=100,label=halo_names[i]))
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
     #ax.legend(handles=halo)
-
+    ax.set_title(halo_names[i])
     print(type('t'))
     #plt.show()
     plt.savefig(WD+halo_names[i]+'_dMdt_MeanMet.png', dpi=300)

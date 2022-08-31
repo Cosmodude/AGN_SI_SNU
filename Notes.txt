@@ -31,6 +31,7 @@ No clear pattern. Something resembling linear regression can be seen on some gra
 To DO:
 Viscosity
 Eddington ratio connects bolometric luminosity and Eddington luminosity
+https://link.springer.com/article/10.1007/s10686-021-09710-2
 
 
 Fe/Mg:

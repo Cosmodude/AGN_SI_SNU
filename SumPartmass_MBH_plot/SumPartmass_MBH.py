@@ -21,7 +21,7 @@ with open('AGNgas_table_all.txt') as f:
 ### Get necessary data
 FE_MG = []
 for i in data:
-    FE_MG.append({i['haloID']: float(i["m_gas"]), 't' : float(i['z']) })
+    FE_MG.append({i['haloID']: float(i["m_gas"]), 't' : float(i['z']) , "MBH": float(i["m_BH"])})
 #print(FE_MG)
 # print(FE_MG[0]['m0175'])
 # print(type(FE_MG[0]))
@@ -39,16 +39,20 @@ print(halo_names)
 ### Split data for halos
 mass =[]
 time=[]
+MBH=[]
 for i in range(len(halo_names)):
     eachht=[]
     m=[]
+    bhm=[]
     for j in FE_MG:
         for k in j:
             if k==halo_names[i]:
                 eachht.append(j['t']) 
-                m.append(j[halo_names[i]])        
+                m.append(j[halo_names[i]]) 
+                bhm.append(j['MBH'])       
     mass.append(m)
     time.append(eachht)
+    MBH.append(bhm)
 print(mass[0][0])
 print(time[0][0])   
 
@@ -61,6 +65,7 @@ def Turn(met):
     #print(Split_dict[0][0])
 Turn(mass)
 Turn(time)
+Turn(MBH)
 print(time[0])
 
 Summ=[]
@@ -85,25 +90,31 @@ print(lb_time[0][0])
 
 ### Creating plot
 def Graph(number):
-    WD = 'SumPartmass_plot/'
+    from matplotlib import colors, transforms
+    WD = 'SumPartmass_MBH_plot/'
     fig, ax = plt.subplots()
     ax.set_xlabel('$Gyr$')
     #ax.set_xlim(0,2.7)
-    ax.set_ylabel('$log(MpartSum/Msolar)$')
+    ax.set_ylabel('$log(M/Msolar)$')
     c=[]
     halo=[]
-    color =number*10
+    color =(number+1)*10
     i=number
-    c=np.full(len(time[i]),color)
+    c=np.full(len(time[i]),0)
+    #c=np.full(len(time[i]),color)
     #for j in range(len(time[i])):
     #ax1.plot(j['t'],'b',j[str])
-    halo.append(ax.scatter(lb_time[i], np.log10(Summ[i]), s=6, c=c, vmin=0, vmax=100,label=halo_names[i]))
+    colors=[colors.to_rgba(h)
+        for h in plt.rcParams['axes.prop_cycle'].by_key()['color']]
+    halo.append(ax.scatter(lb_time[i], np.log10(Summ[i]), s=6, color=colors[9], vmin=0, vmax=100,label="SumPartMass"))
+    halo.append(ax.scatter(lb_time[i], np.log10(MBH[i]), s=6, c=c, vmin=0, vmax=100,label="MBH"))
     #ax.scatter(time, rat, s=6, c=c, vmin=0, vmax=100)
     ax.legend(handles=halo)
+    ax.set_title(halo_names[i])
 
     print(type('t'))
     #plt.show()
-    plt.savefig(WD+halo_names[i]+'_SumPartmass.png', dpi=300)
+    plt.savefig(WD+halo_names[i]+'_SumPartmass_MBH.png', dpi=300)
 
 for j in range(len(halo_names)):
     Graph(j)

@@ -172,6 +172,7 @@ def Hist(number):
             ax.bar( MBh, dm, width=0.5,color=colors[9-int(j/1.5)] ,label=j)
             ax.legend(title='Gyr',fontsize='small')     
     ax.legend()
+    ax.set_title(halo_names[i])
 
     print(type('t'))
     #plt.show()
