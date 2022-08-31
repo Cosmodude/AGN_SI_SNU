@@ -127,6 +127,9 @@ def Graph(number):
     colors=[colors.to_rgba(h)
         for h in plt.rcParams['axes.prop_cycle'].by_key()['color']]
 
+
+
+#jfkgkglfls
     for j in lb:
         dm=[]
         Z=[]
